@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'pets#index'
 
+  resources :users, only: [:new, :create, :show]
+  resources :pets, only: [:show, :index]
+
   resources :regions do
     resources :stores
   end
@@ -8,7 +11,4 @@ Rails.application.routes.draw do
   resources :shelters do
     resources :pets, only: [:new, :create]
   end
-
-  resources :users, only: [:new, :create]
-  resources :pets, only: [:show, :index]
 end
