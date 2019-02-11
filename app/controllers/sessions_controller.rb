@@ -7,10 +7,16 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to root_path
-      flash[:success] = "Welcome back, #{user.name}!"
+      flash[:success] = "Welcome, #{user.username}!"
     else
       flash[:alert] = "We couldn't find you with those logins. Please try again."
       render :new
     end
+  end
+
+  def destroy
+    session.clear
+    flash[:alert] = "You have been logged out."
+    redirect_to root_path
   end
 end

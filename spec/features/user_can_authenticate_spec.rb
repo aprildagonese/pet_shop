@@ -16,7 +16,8 @@ describe 'As a visitor' do
       click_on "Create User"
 
       expect(current_path).to eq(root_path)
-      expect(page).to have_content("Welcome, April Dagonese!")
+      expect(page).to have_content("Your account has been created, April Dagonese!")
+      expect(page).to have_link("Log Out")
     end
   end
 end
@@ -29,18 +30,20 @@ describe "As a registered user" do
       user = User.create!(name: "Fae", username: "faedag", password: "faepassword")
 
       visit root_path
+
       click_on "Log In"
 
       expect(current_path).to eq(login_path)
       fill_in "Username", with: user.username
       fill_in "Password", with: user.password
 
-      click_on "Log In"
+      click_button "Log In"
 
-      expect(current_path).to eq(user_path(user))
+      expect(current_path).to eq(root_path)
 
-      expect(page).to have_content("Welcome, #{user.username}")
+      expect(page).to have_content("Welcome, #{user.username}!")
       expect(page).to have_content("Log Out")
+      expect(page).to_not have_link("Log In")
     end
   end
 end
