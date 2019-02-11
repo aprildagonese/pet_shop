@@ -4,14 +4,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
+      session[:user_id] = @user.id
       redirect_to root_path
-      flash[:welcome] = "Welcome #{@user.username}!"
+      flash[:welcome] = "Your account has been created, #{@user.name}!"
     else
       redirect_to new_user_path
       flash[:error] = "Your account could not be created."
@@ -21,6 +21,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :username, :password_digest)
+    params.require(:user).permit(:name, :username, :password)
   end
 end

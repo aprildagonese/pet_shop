@@ -11,4 +11,7 @@ Rails.application.routes.draw do
   resources :shelters do
     resources :pets, only: [:new, :create]
   end
+
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
 end

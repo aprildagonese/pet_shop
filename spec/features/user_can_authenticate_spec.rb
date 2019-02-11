@@ -26,15 +26,14 @@ require 'rails_helper'
 describe "As a registered user" do
   context "when I visit Pets#index and I click on 'Log In'" do
     it 'shows login form' do
-      user = User.create!(name: "Fae", username: "faedag", password_digest: "faepassword")
+      user = User.create!(name: "Fae", username: "faedag", password: "faepassword")
 
       visit root_path
       click_on "Log In"
 
       expect(current_path).to eq(login_path)
-      fill_in "Name", with: user.name
       fill_in "Username", with: user.username
-      fill_in "Password", with: user.password_digest
+      fill_in "Password", with: user.password
 
       click_on "Log In"
 
