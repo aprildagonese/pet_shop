@@ -1,7 +1,10 @@
 class User < ApplicationRecord
+  has_secure_password
+
   validates :name, presence: true
   validates :username, uniqueness: true, presence: true
-  validates_presence_of :password_digest
+  validates :password_digest, presence: true
 
-  has_secure_password
+  enum role: %w(default admin registered store_mgr)
+
 end
